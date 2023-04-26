@@ -16,10 +16,11 @@ body {
 
 h1 {
     margin: 1em;
+    margin-bottom: 0;
     padding: 1em;
-    width: 80vw;
+    width: 75vw;
     background-color: black;
-    color: white;
+    color: lightcyan;
     text-align: center;
 }
 
@@ -46,7 +47,7 @@ h2 {
 /* box containing just answers */
 .choice-box{
     margin: 1em;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
@@ -68,11 +69,21 @@ h2 {
 
 #message-line {
     margin: 1em;
+    margin-top: 0;
     display: flex;
-    flex-direction: column;
+    width: 75vw;
+    flex: row nowrap;
     align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid black;
 }
 
+#message-line span {
+    padding: 1em;
+    width: 25vw;
+    background-color: lightcyan;
+}
 /* end of question container styling */
 
 .play-button {
@@ -82,4 +93,8 @@ h2 {
     padding: 1em;
     margin-top: 20px;
     width: 200px;
+}
+
+.noButton {
+    display: block;
 }

@@ -9,13 +9,18 @@
 </head>
 <body>
     <h1>Welcome to the Code Quiz</h1>
+    <p id="message-line">
+        <span id="message">Message: </span>
+        <span id="score">Score: </span>
+        <span id="time">Time: </span>
+    </p>
     <div class="question-container">
         <h2>Press Start To Begin The Quiz</h2>
         <ul class="choice-box">
-            <li><button class="choices" id="choice1"></button></li>
-            <li><button class="choices" id="choice2"></button></li>
+            <li class="noButton" ><button class="choices" id="choice1"></button></li>
+            <li class="noButton" ><button class="choices" id="choice2"></button></li>
         </ul>
-        <p id="message-line"><span id="message"></span><span id="score">Score: 0</span></p>
+        
     </div>
     <button class="play-button">Start</button>
     <script src="./assets/script.js"></script>
