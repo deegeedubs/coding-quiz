@@ -48,7 +48,10 @@ var wrong3s = ["All Plus Integer", "call.functionName;", ".querySelector()"];
 
 var scoreValue = 0;
 
-var highScores = {
+var highScores;
+
+if (localStorage.getItem("highScores") === null){
+  highScores = {
     firstScore: 0,
     firstInitial: "XXX",
     secondScore: 0,
@@ -59,7 +62,10 @@ var highScores = {
     fourthInitial: "XXX",
     fifthScore: 0,
     fifthInitial: "XXX",
+  }
+  localStorage.setItem("highScores", JSON.stringify(highScores));
 }
+
 
 var hs1 = document.querySelector("#score-1");
 var hs2 = document.querySelector("#score-2");
@@ -68,7 +74,6 @@ var hs4 = document.querySelector("#score-4");
 var hs5 = document.querySelector("#score-5");
 
 callHighScores();
-
 
 resetGame();
 
@@ -212,6 +217,11 @@ function resetGame() {
 // Function to add a new score to high score list
 function setHighScore() {
     var currentInitial = prompt("Enter your initials:");
+    if (currentInitial.length > 3){
+      alert("Invalid Entry: Maximum of 3 characters.");
+      setHighScore();
+      return;
+    }
     if (scoreValue > highScores.firstScore){
         highScores.fifthScore = highScores.fourthScore;
         highScores.fifthInitial = highScores.fourthInitial;
