@@ -14,15 +14,23 @@
         <span id="score">Score: </span>
         <span id="time">Time: </span>
     </p>
-    <div class="question-container">
-        <h2>Press Start To Begin The Quiz</h2>
-        <ul class="choice-box">
-            <li class="noButton" ><button class="choices" id="choice1"></button></li>
-            <li class="noButton" ><button class="choices" id="choice2"></button></li>
-        </ul>
-        
+    <div class = "content">
+        <div class="question-container">
+            <h2>Press Start To Begin The Quiz</h2>
+            <ul class="choice-box">
+                <li class="noButton" ><button class="choices" id="choice1"></button></li>
+                <li class="noButton" ><button class="choices" id="choice2"></button></li>
+            </ul>
+        </div>
+        <div class="buttons">
+            <button class="play-button">Start</button>
+        </div>
     </div>
-    <button class="play-button">Start</button>
+    <div>
+        <div class="last-score-container">
+            <h2>Last Saved Score: <span id="last-score"></span></h2>
+        </div>
+    </div>
     <script src="./assets/script.js"></script>
 </body>
 </html>

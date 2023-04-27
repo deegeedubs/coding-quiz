@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: bisque;
+    background-color: rgb(237, 215, 185);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,13 +24,26 @@ h1 {
     text-align: center;
 }
 
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.last-score-container {
+    width: 20vw;
+    background-color: white;
+    margin-top: 10vh;
+    border: 1px solid black;
+    justify-content: center;
+}
+
 /* box containing questions + answers */
 .question-container { 
     display: flex;
     width: 50vw;
     flex-direction: column;
-    margin-left: 20%;
-    margin-right: 20%;
     background-color: white;
     padding: 0.3rem;
     border: 1px solid black;
@@ -38,11 +51,19 @@ h1 {
 }
 
 h2 {
-    background-color: aqua;
+    background-color: lightcyan;
     border: 1px solid black;
     text-align: center;
     padding: 0.5rem;
 }
+
+h3 {
+    background-color: whitesmoke;
+    border: 1px solid black;
+    text-align: center;
+    padding: 0.5rem;
+}
+
 
 /* box containing just answers */
 .choice-box{
@@ -63,7 +84,7 @@ h2 {
     margin: 1em;
     width: 200px;
     height: 50px;
-    background-color: lightcyan;
+    background-color:  rgb(237, 215, 185);
 
 }
 
@@ -86,6 +107,12 @@ h2 {
 }
 /* end of question container styling */
 
+.buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
 .play-button {
     display: block;
     background-color: black;
@@ -94,6 +121,8 @@ h2 {
     margin-top: 20px;
     width: 200px;
 }
+
+
 
 .noButton {
     display: block;
