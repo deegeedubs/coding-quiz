@@ -1,16 +1,23 @@
-var questionCurrent;
-var buttonBox = document.querySelector(".buttons");
-var questionContainer = document.querySelector(".question-container");
+//! Variable declarations
+
 var questionText = document.querySelector("h2");
+var questionContainer = document.querySelector(".question-container");
 var answerBox = document.querySelector(".choice-box"); //ul
-var list = answerBox.querySelectorAll(".noButton"); //li
-var choices = document.querySelectorAll(".choices"); //buttons
+var choices = document.querySelectorAll(".choices"); //question choices
+
 var message = document.querySelector("#message");
 var messageIntro = message.textContent;
 var score = document.querySelector("#score");
 var timer = document.querySelector("#time");
+
+var buttonBox = document.querySelector(".buttons");
 var playButton = document.querySelector(".play-button");
-var lastScore = document.querySelector("#last-score");
+
+var timerInterval;
+var timeLeft = 30;
+
+var questionCurrent;
+var i = 0;
 
 var finalScore = document.createElement("h3");
 questionContainer.appendChild(finalScore);
@@ -32,14 +39,36 @@ var questions = [
 ];
 var answers = [
   "Application Programming Interface",
-  "function();",
+  "functionName();",
   ".addChild()",
 ];
-var wrong1s = ["Application Page Input", "function{};", ".appendChild"];
+var wrong1s = ["Application Page Input", "functionName{};", ".appendChild()"];
+var wrong2s = ["Answer Plus Input", "function.call(functionName);", ".sort()"];
+var wrong3s = ["All Plus Integer", "call.functionName;", ".querySelector()"];
 
 var scoreValue = 0;
 
-lastScore.textContent = localStorage.getItem("highscore");
+var highScores = {
+    firstScore: 0,
+    firstInitial: "XXX",
+    secondScore: 0,
+    secondInitial: "XXX",
+    thirdScore: 0,
+    thirdInitial: "XXX",
+    fourthScore: 0,
+    fourthInitial: "XXX",
+    fifthScore: 0,
+    fifthInitial: "XXX",
+}
+
+var hs1 = document.querySelector("#score-1");
+var hs2 = document.querySelector("#score-2");
+var hs3 = document.querySelector("#score-3");
+var hs4 = document.querySelector("#score-4");
+var hs5 = document.querySelector("#score-5");
+
+callHighScores();
+
 
 resetGame();
 
@@ -75,13 +104,30 @@ choices[1].addEventListener("click", function (event) {
   score.textContent = "Score: " + scoreValue + " points";
 });
 
+choices[2].addEventListener("click", function (event) {
+    message.textContent = messageIntro + " Incorrect. Try Again.";
+    setTimeout(function () {
+      message.textContent = messageIntro;
+    }, 1000);
+    scoreValue = scoreValue - 1;
+    timeLeft = timeLeft - 5;
+    score.textContent = "Score: " + scoreValue + " points";
+  });
+
+  choices[3].addEventListener("click", function (event) {
+    message.textContent = messageIntro + " Incorrect. Try Again.";
+    setTimeout(function () {
+      message.textContent = messageIntro;
+    }, 1000);
+    scoreValue = scoreValue - 1;
+    timeLeft = timeLeft - 5;
+    score.textContent = "Score: " + scoreValue + " points";
+  });
+
 reset.addEventListener("click", resetGame);
 
-saveScore.addEventListener("click", function(){
-    var initials = window.prompt("Enter your initials:");
-    lastScore.textContent = initials + " " + scoreValue;
-    localStorage.setItem("lastscore", lastScore.textContent);
-})
+saveScore.addEventListener("click", setHighScore);
+
 
 //! Functions
 
@@ -95,24 +141,28 @@ function gameStart() {
     startTimer();
   }
 
-var i = 0;
+
 // Store next question into object
 function callQuestion(i) {
   questionCurrent = {
     question: questions[i],
     answer: answers[i],
     wrong1: wrong1s[i],
+    wrong2: wrong2s[i],
+    wrong3: wrong3s[i]
   };
   questionText.textContent = questionCurrent.question;
   choices[0].textContent = questionCurrent.answer;
   choices[1].textContent = questionCurrent.wrong1;
+  choices[2].textContent = questionCurrent.wrong2;
+  choices[3].textContent = questionCurrent.wrong3;
 
   if (i === questions.length) {
     gameOver();
   }
 }
-var timerInterval;
-var timeLeft = 30;
+
+// Function for timer
 function startTimer() {
   timerInterval = setInterval(function () {
     timeLeft--;
@@ -126,18 +176,23 @@ function startTimer() {
   }, 1000);
 }
 
+// Function to execute when game is over
 function gameOver() {
   clearInterval(timerInterval);
   questionText.textContent = "Game Over.";
   message.textContent = messageIntro;
   answerBox.style.display = "none";
+
   scoreValue = scoreValue + timeLeft;
   finalScore.style.display = "block";
   finalScore.textContent = "Your final score is: " + scoreValue + " points.";
 
-  saveScore.style.display = "block";
+  if (scoreValue > highScores.fifthScore){
+    saveScore.style.display = "block";
+  }
 }
 
+// Function to reset game 
 function resetGame() {
   scoreValue = 0;
   timeLeft = 30;
@@ -152,4 +207,61 @@ function resetGame() {
   answerBox.setAttribute("style", "display: none");
   finalScore.style.display = "none";
   saveScore.style.display = "none";
+}
+
+// Function to add a new score to high score list
+function setHighScore() {
+    var currentInitial = prompt("Enter your initials:");
+    if (scoreValue > highScores.firstScore){
+        highScores.fifthScore = highScores.fourthScore;
+        highScores.fifthInitial = highScores.fourthInitial;
+        highScores.fourthScore = highScores.thirdScore;
+        highScores.fourthInitial = highScores.thirdInitial;
+        highScores.thirdScore = highScores.secondScore;
+        highScores.thirdInitial = highScores.secondInitial;
+        highScores.secondScore = highScores.firstScore;
+        highScores.secondInitial = highScores.firstInitial;
+        highScores.firstScore = scoreValue;
+        highScores.firstInitial = currentInitial;
+    } else if (scoreValue > highScores.secondScore){
+        highScores.fifthScore = highScores.fourthScore;
+        highScores.fifthInitial = highScores.fourthInitial;
+        highScores.fourthScore = highScores.thirdScore;
+        highScores.fourthInitial = highScores.thirdInitial;
+        highScores.thirdScore = highScores.secondScore;
+        highScores.thirdInitial = highScores.secondInitial;
+        highScores.secondScore = scoreValue;
+        highScores.secondInitial = currentInitial;
+    } else if (scoreValue > highScores.thirdScore){
+        highScores.fifthScore = highScores.fourthScore;
+        highScores.fifthInitial = highScores.fourthInitial;
+        highScores.fourthScore = highScores.thirdScore;
+        highScores.fourthInitial = highScores.thirdInitial;
+        highScores.thirdScore = scoreValue;
+        highScores.thirdInitial = currentInitial;
+    } else if (scoreValue > highScores.fourthScore){
+        highScores.fifthScore = highScores.fourthScore;
+        highScores.fifthInitial = highScores.fourthInitial;
+        highScores.fourthScore = scoreValue;
+        highScores.fourthInitial = currentInitial;
+    } else {
+        highScores.fifthScore = scoreValue;
+        highScores.fifthInitial = currentInitial;
+    }
+    console.log(highScores);
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    saveScore.style.display = "none";
+    
+    callHighScores();
+}
+
+// Function to pull the high scores from local storage to  HTML
+function callHighScores() {
+    hsString = localStorage.getItem("highScores");
+    highScores = JSON.parse(hsString);
+    hs1.textContent = highScores.firstInitial + `: ` + highScores.firstScore;
+    hs2.textContent = highScores.secondInitial + `: ` + highScores.secondScore;
+    hs3.textContent = highScores.thirdInitial + `: ` + highScores.thirdScore;
+    hs4.textContent = highScores.fourthInitial + `: ` + highScores.fourthScore;
+    hs5.textContent = highScores.fifthInitial + `: ` + highScores.fifthScore;
 }

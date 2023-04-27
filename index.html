@@ -15,20 +15,29 @@
         <span id="time">Time: </span>
     </p>
     <div class = "content">
-        <div class="question-container">
-            <h2>Press Start To Begin The Quiz</h2>
-            <ul class="choice-box">
-                <li class="noButton" ><button class="choices" id="choice1"></button></li>
-                <li class="noButton" ><button class="choices" id="choice2"></button></li>
-            </ul>
+        <div class="quiz-box">
+            <div class="question-container">
+                <h2>Press Start To Begin The Quiz</h2>
+                <ul class="choice-box">
+                    <li><button class="choices" id="choice1"></button></li>
+                    <li><button class="choices" id="choice2"></button></li>
+                    <li><button class="choices" id="choice3"></button></li>
+                    <li><button class="choices" id="choice4"></button></li>
+                </ul>
+            </div>
+            <div class="buttons">
+                <button class="play-button">Start</button>
+            </div>
         </div>
-        <div class="buttons">
-            <button class="play-button">Start</button>
-        </div>
-    </div>
-    <div>
-        <div class="last-score-container">
-            <h2>Last Saved Score: <span id="last-score"></span></h2>
+        <div class="high-score-container">
+            <h2>High Scores</h2>
+            <ol>
+                <li class="scores" id="score-1"> </li>
+                <li class="scores" id="score-2"> </li>
+                <li class="scores" id="score-3"> </li>
+                <li class="scores" id="score-4"> </li>
+                <li class="scores" id="score-5"> </li>
+            </ol>
         </div>
     </div>
     <script src="./assets/script.js"></script>
